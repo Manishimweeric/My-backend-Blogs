@@ -35,7 +35,7 @@ const mockAuthMiddleware = (req, res, next) => {
 
     // Create a user and generate a token for authenticated requests
     const user = await UserModel.create({
-      email: 'testuser3@gmail.com',
+      email: 'testuser6@gmail.com',
       password: await bcrypt.hash('password123', 10)
     });
     
@@ -61,7 +61,7 @@ const mockAuthMiddleware = (req, res, next) => {
 
   it('should create a new blog post', async () => {
     const res = await request(app)
-      .post('/api/blogs') 
+      .post('/api/blog') 
         .set('Authorization', `Bearer ${token}`) 
       .send({
         title: 'Test Blog',
@@ -78,7 +78,7 @@ const mockAuthMiddleware = (req, res, next) => {
 
   it('should return 400 for invalid input', async () => {
     const res = await request(app)
-      .post('/api/blogs') 
+      .post('/api/blog') 
       .set('Authorization', `Bearer ${token}`) 
       .send({}) 
       .expect(400);

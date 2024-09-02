@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --testTimeout 20000",
+    "test": "jest --testTimeout 10000",
+    "coverage:report": "cat coverage/lcov.info | coveralls",
     "start": "node index.js"
   },
   "keywords": [],

@@ -9,8 +9,8 @@ const options= {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "MY BLOG API",
-            version: "0.1"
+            title: "SWAGGER BLOGS API",
+            version: "1.1"
         },
         components: {
             securitySchemes: {
@@ -84,26 +84,13 @@ const options= {
 const swaggerSpec = swaggerJsdoc(options);
 
 function swaggerDocs(app, port) {
-    // Serve Swagger UI
     app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-    // app.use(
-    //     "/docs",
-    //     swaggerUi.serve,
-    //     swaggerUi.setup(swaggerSpec, {
-    //         customCss: `
-    //       ${fs.readFileSync("./src/utils/SwaggerDark.css")}
-    //     `,
-    //     })
-    // );
-    // Serve Swagger JSON
     app.get("/docs.json", (req, res) => {
         res.setHeader("Content-Type", "application/json");
         res.send(swaggerSpec);
     });
 
-    // Log Swagger availability
-    // log.info(`Swagger docs available at http://localhost:${port}/docs`);
+  
     app.use((req, res, next) => {
         const host = req.get("host");
         const protocol = req.protocol;

@@ -34,44 +34,26 @@ router.get('/blogs', isAuthenticated,blogController.getAllBlogPosts);
  *     summary: Add new blog
  *     tags:
  *       - Blogs
- *     description: Create a new blog with an image upload
+ *     description: Create a new blog
  *     security:
  *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 description: Title of the blog
- *               content:
- *                 type: string
- *                 description: Content of the blog
- *               author:
- *                 type: string
- *                 description: Author of the blog
- *               image:
- *                 type: string
- *                 format: binary
- *                 description: Image file to be uploaded
+ *             $ref: '#/components/schemas/Blog'
  *     responses:
  *       '201':
  *         description: Blog created successfully
- *       '400':
- *         description: Bad request - Missing image or required fields
  *       '401':
  *         description: Unauthorized - user authentication failed
  *       '500':
  *         description: Internal server error
  */
+router.post('/blogs', isAuthenticated,blogController.createBlog);
 
-router.post('/blogs', isAuthenticated,blogController.createBlogPost);
-
-
-router.post('/blog', isAuthenticated, blogController.createBlog);
+// router.post('/blog', isAuthenticated, blogController.createBlog);
 
 /**
  * @swagger

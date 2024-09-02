@@ -13,7 +13,6 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
-
   run_tests:
     executor: node-executor
     steps:
@@ -21,7 +20,6 @@ jobs:
       - run:
           name: Run Tests
           command: npm test
-
 workflows:
   version: 2
   build_and_test:
