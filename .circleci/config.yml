@@ -20,9 +20,13 @@ jobs:
           name: Run Tests          
           command: |
              chmod +x ./node_modules/.bin/jest
-             npx jest --coverage --no-cache
-          
-          
+             npx jest --coverage --no-cache        
+      - run:
+          name: Upload Coverage to Coveralls
+          command: |
+            cd blogs-backend
+            chmod +x ./node_modules/.bin/coveralls
+            npx coveralls < coverage/lcov.info        
 workflows:
   version: 2
   build_and_test:
