@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Run Tests          
           command: chmod +x ./node_modules/.bin/jest
-                   npm test  --coverage
+                   npm test
           
 workflows:
   version: 2
