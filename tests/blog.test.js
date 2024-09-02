@@ -35,7 +35,7 @@ const mockAuthMiddleware = (req, res, next) => {
 
     // Create a user and generate a token for authenticated requests
     const user = await UserModel.create({
-      email: 'testuser6@gmail.com',
+      email: 'testuser7@gmail.com',
       password: await bcrypt.hash('password123', 10)
     });
     
