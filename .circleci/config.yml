@@ -24,7 +24,6 @@ jobs:
       - run:
           name: Upload Coverage to Coveralls
           command: |
-            cd blogs-backend
             chmod +x ./node_modules/.bin/coveralls
             npx coveralls < coverage/lcov.info        
 workflows:
