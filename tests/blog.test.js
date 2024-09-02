@@ -22,32 +22,33 @@ const mockAuthMiddleware = (req, res, next) => {
   next();
 };
 
-  beforeAll(async () => {
-    mongoServer = await MongoMemoryServer.create();
-    const mongoUri = mongoServer.getUri();
-    
-    if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(mongoUri);
-    }
-    jest.mock('../middlewares/authentication', () => ({
-      isAuthenticated: mockAuthMiddleware
-    }));
-
-    // Create a user and generate a token for authenticated requests
-    const user = await UserModel.create({
-      email: 'testuser7@gmail.com',
-      password: await bcrypt.hash('password123', 10)
-    });
-    
-    token = jwt.sign({ id: user._id }, 'secret_key123');
+beforeAll(async () => {    
+  mongoServer = await MongoMemoryServer.create();
+  const mongoUri = mongoServer.getUri();
+  
+  
+  if (mongoose.connection.readyState !== 0) {
+   
+    await mongoose.disconnect();
+  }
+  await mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
-
-  afterAll(async () => {
-    if (mongoose.connection.readyState !== 0) {
-      await mongoose.disconnect();
-    }
-    await mongoServer.stop();
+  const user = await UserModel.create({
+    email: 'testuser3@gmail.com',
+    password: await bcrypt.hash('password123', 10)
   });
+  
+  token = jwt.sign({ id: user._id }, 'secret_key123');
+});
+
+afterAll(async () => {
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
+  await mongoServer.stop();
+})
 
   it('should respond to the test route', async () => {
     const res = await request(app)
