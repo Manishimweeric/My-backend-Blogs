@@ -68,23 +68,14 @@ const schema = Joi.object({
 };
 
 exports.getAllBlogPosts = async (req, res) => {
-  try {
     const posts = await Post.find();
     res.send(posts);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
-  }
 };
 
 exports.getBlogById = async (req, res) => {
 
-         try{
            const post = await Post.findOne({_id: req.params.id});
             res.send(post)
-            }catch{
-              res.status(404).send("Post not found")
-           }
         
 };
 
@@ -136,6 +127,7 @@ exports.SaveComment = async (req, res) => {
 
         res.status(201).json(comment);
     } catch (error) {
+
             res.status(404)
             res.send({ error: "Post doesn't exist!" })
     }
