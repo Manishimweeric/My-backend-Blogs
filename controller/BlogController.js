@@ -136,7 +136,8 @@ exports.SaveComment = async (req, res) => {
 
         res.status(201).json(comment);
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+            res.status(404)
+            res.send({ error: "Post doesn't exist!" })
     }
 };
 
