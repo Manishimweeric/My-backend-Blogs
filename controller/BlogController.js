@@ -15,9 +15,9 @@ exports.createBlogPost = async (req, res) => {
     
     const { title, content, author } = req.body;
 
-    // if (!req.file) {
-    //   return res.status(400).json({ err: 'Please select an image' });
-    // }
+    if (!req.file) {
+      return res.status(400).json({ err: 'Please select an image' });
+    }
 
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "Blogs"
@@ -43,9 +43,7 @@ exports.createBlogPost = async (req, res) => {
       message: 'Post created successfully',
       post
     });
-
   } catch (error) {
-    // console.error(error);
     return res.status(500).json({ message: 'Server error' });
   }
 };
@@ -136,15 +134,13 @@ exports.SaveComment = async (req, res) => {
         });
 
         await comment.save();
-        const post = await Post.findById(postId);
-        post.comments.push(comment._id);
 
         res.status(201).json(comment);
     } catch (error) {
-        // console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 };
+
 
 exports.likeBlog = async (req, res) => {
     try {
@@ -198,9 +194,9 @@ exports.GetComment = async (req, res) => {
     try {
         const postId = req.params.id;
         const post = await Post.findById(postId);
-        if (!post) {
-            return res.status(404).json({ message: 'Post not found' });
-        }
+        // if (!post) {
+        //     return res.status(404).json({ message: 'Post not found' });
+        // }
         const comments = await Comment.find({ postId: postId });
         res.status(200).json(comments);
     } catch (error) {

@@ -119,29 +119,21 @@ afterAll(async () => {
   it('should delete a blog post', async () => {
     await request(app)
       .delete(`/api/blogs/${createdBlogId}`)
-      .set('Authorization', `Bearer ${token}`) // Incl
+      .set('Authorization', `Bearer ${token}`)
       .expect(204);
   });
 
-  // it('should save a comment', async () => {
-  //   const res = await request(app)
-  //     .post(`/api/blogs/${createdBlogId}/comments`)
-  //     .send({ content: 'Test comment' })
-  //     .expect(201);
+it('should save a comment', async () => {
+    const res = await request(app)
+      .post(`/api/blogs/${createdBlogId}/comments`)
+      .set('Authorization',`Bearer ${token}`) 
+      .send({ content: 'Test comment' })    
+      .expect(201);
 
-  //   expect(res.body).toHaveProperty('content', 'Test comment');
-  // });
+    expect(res.body).toHaveProperty('content', 'Test comment');
+    expect(res.body).toHaveProperty('postId', createdBlogId.toString());
+  });
 
-// it('should save a comment', async () => {
-//     const res = await request(app)
-//       .post(`/api/blogs/${createdBlogId}/comments`)
-//       .set('Authorization',`Bearer ${token}`) 
-//       .send({ content: 'Test comment' })    
-//       .expect(201);
-
-//     expect(res.body).toHaveProperty('content', 'Test comment');
-//     expect(res.body).toHaveProperty('postId', createdBlogId.toString());
-//   });
 
   it('should like a blog post', async () => {
     const res = await request(app)
@@ -171,12 +163,12 @@ afterAll(async () => {
     expect(Array.isArray(res.body.likes)).toBeTruthy();
   });
 
-  // it('should get comments for a blog post', async () => {
-  //   const res = await request(app)
-  //     .get(`/api/blogs/${createdBlogId}/comments`)
-  //     .set('Authorization',`Bearer ${token}`) 
-  //     .expect(200);
+  it('should get comments for a blog post', async () => {
+    const res = await request(app)
+      .get(`/api/blogs/${createdBlogId}/comments`)
+      .set('Authorization',`Bearer ${token}`) 
+      .expect(200);
 
-  //   expect(Array.isArray(res.body)).toBeTruthy();
-  // });
+    expect(Array.isArray(res.body)).toBeTruthy();
+  });
  });
