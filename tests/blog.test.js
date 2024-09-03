@@ -187,6 +187,34 @@ it('should save a comment', async () => {
     expect(res.body).toHaveProperty('likeCount');
   });
 
+  it('should return 404 if the blog post does not exist when trying to retrive all like located in it ', async () => {
+    const nonExistentBlogIdsd = 'gsff603dcd781c25b04778b1ef4dsa';
+
+    const res = await request(app)
+      .get(`/api/blogs/${nonExistentBlogIdsd}/likes`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(404);
+
+    expect(res.body).toHaveProperty('error', "Post not found");
+  });
+
+
+  // it('should return 404 if no likes are found for the blog post', async () => {
+  //   // Use a blog ID with no likes
+  //   const noLikesBlogId = 'some-id-with-no-likes'; // Adjust this ID based on your test setup
+
+  //   // Mocking Likes.find() to return an empty array
+  //   jest.spyOn(Likes, 'find').mockResolvedValue([]);
+
+  //   const res = await request(app)
+  //     .get(`/api/blogs/${noLikesBlogId}/likeusers`)
+  //     .set('Authorization', `Bearer ${token}`)
+  //     .expect(404);
+
+  //   expect(res.body).toHaveProperty('message', 'No likes found for this post');
+  // });
+
+
   it('should get all likes and users for a blog post', async () => {
     const res = await request(app)
       .get(`/api/blogs/${createdBlogId}/likeusers`)

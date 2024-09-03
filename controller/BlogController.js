@@ -168,8 +168,8 @@ exports.CountLikes = async (req, res) => {
         const likeCount = await Likes.countDocuments({ postId: postId });
         res.status(200).json({ likeCount });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(404)
+        res.send({  error: 'Post not found'})
     }
 };
 
