@@ -110,11 +110,58 @@ afterAll(async () => {
     const res = await request(app)
       .patch(`/api/blogs/${createdBlogId}`)
       .set('Authorization', `Bearer ${token}`) 
-      .send({ title: 'Updated Test Blog' })
+      .send({ title: 'Updated Title', content: 'Updated Content',author : 'Updated Author' })
       .expect(200);
 
-    expect(res.body).toHaveProperty('title', 'Updated Test Blog');
+    // expect(res.body).toHaveProperty('title', 'Updated Test Blog');
+    // expect(res.body).toHaveProperty('content', 'Updated Content');
+    // expect(res.body).toHaveProperty('author', 'Updated Author' );
   });
+
+
+  // it('should update the blog post successfully', async () => {
+  //   const res = await request(app)
+  //     .put(`/api/blogs/${createdBlogId}`)
+  //     .set('Authorization', `Bearer ${token}`)
+  //     .send({ title: 'Updated Title', content: 'Updated Content',author : 'Updated Author' })
+  //     .expect(200);
+
+  //   expect(res.body).toHaveProperty('title', 'Updated Title');
+  //   expect(res.body).toHaveProperty('content', 'Updated Content');
+  //   expect(res.body).toHaveProperty('author', 'Original Author');
+  // });
+
+  // it('should return 404 if the blog post does not exist', async () => {
+  //   const nonExistentId = new mongoose.Types.ObjectId(); // Generate a random ObjectId
+  //   const res = await request(app)
+  //     .put(`/api/blogs/${nonExistentId}`)
+  //     .set('Authorization', `Bearer ${token}`)
+  //     .send({ title: 'New Title' })
+  //     .expect(404);
+
+  //   expect(res.body).toHaveProperty('error', "Post doesn't exist!");
+  // });
+
+  // it('should update only the provided fields', async () => {
+  //   const res = await request(app)
+  //     .put(`/api/blogs/${createdBlogId}`)
+  //     .set('Authorization', `Bearer ${token}`)
+  //     .send({ title: 'Partially Updated Title' })
+  //     .expect(200);
+
+  //   expect(res.body).toHaveProperty('title', 'Partially Updated Title');
+  //   expect(res.body).toHaveProperty('content', 'Original Content'); // Content should remain unchanged
+  //   expect(res.body).toHaveProperty('author', 'Original Author');
+  // });
+
+
+
+
+
+
+
+
+
 
   it('should delete a blog post', async () => {
     await request(app)

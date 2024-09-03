@@ -63,7 +63,6 @@ const schema = Joi.object({
         await post.save();
         res.status(201).send(post);
     } catch (error) {
-        console.error(error);
         res.status(500).send({ error: "Error creating blog" });
    }
 };
@@ -101,7 +100,7 @@ exports.UpdateBlog = async (req, res) => {
                 post.content = req.body.content
             }
             if (req.body.content) {
-                post.author = req.body.content
+                post.author = req.body.author
             }
     
             await post.save()
