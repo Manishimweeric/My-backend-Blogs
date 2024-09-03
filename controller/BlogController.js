@@ -54,7 +54,7 @@ const schema = Joi.object({
     author: Joi.string().required()
   });
   exports.createBlog = async (req, res) => {
-    try {
+    // try {
         const { error } = schema.validate(req.body);
         if (error) return res.status(400).send({ error: error.details[0].message });
 
@@ -62,9 +62,9 @@ const schema = Joi.object({
         const post = new Post({ title, content, author });
         await post.save();
         res.status(201).send(post);
-    } catch (error) {
-        res.status(500).send({ error: "Error creating blog" });
-   }
+//     } catch (error) {
+//         res.status(500).send({ error: "Error creating blog" });
+//    }
 };
 
 exports.getAllBlogPosts = async (req, res) => {
@@ -135,7 +135,7 @@ exports.SaveComment = async (req, res) => {
 
 
 exports.likeBlog = async (req, res) => {
-    try {
+    // try {
         const userId = req.user._id; 
         const postId = req.params.id; 
         const Liked_before = await Likes.findOne({ postId: postId, user: userId});
@@ -148,10 +148,10 @@ exports.likeBlog = async (req, res) => {
             await newLike.save();
             res.status(201).json({ message: 'Like added', like: newLike })
         }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
-    }
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ message: 'Server error' });
+    // }
 };
 
 exports.CountLikes = async (req, res) => {
@@ -166,20 +166,20 @@ exports.CountLikes = async (req, res) => {
 };
 
 exports.getAllLikesAndUsers = async (req, res) => {
-    try {
+    // try {
         const postId = req.params.id; 
         
         const likes = await Likes.find({ postId: postId }).populate('user', 'name email');
 
-        if (!likes) {
-            return res.status(404).json({ message: 'No likes found for this post' });
-        }
+        // if (!likes) {
+        //     return res.status(404).json({ message: 'No likes found for this post' });
+        // }
 
         res.status(200).json({ likes });
-    } catch (error) {
-        // console.error(error);
-        res.status(500).json({ message: 'Server error' });
-    }
+    // } catch (error) {
+    //     // console.error(error);
+    //     res.status(500).json({ message: 'Server error' });
+    // }
 };
 
 exports.GetComment = async (req, res) => {

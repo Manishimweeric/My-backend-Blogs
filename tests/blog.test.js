@@ -114,6 +114,21 @@ afterAll(async () => {
       .expect(200);
   });
 
+//   test('should remove a like if already liked', async () => {
+//     // First, like the post
+//     await Likes.create({ postId, user: userId });
+
+//     const response = await request(app)
+//         .post('/like') // replace with your actual route
+//         .send({ postId, userId })
+//         .expect(200);
+
+//     expect(response.body.message).toBe('Like removed');
+
+//     // Ensure the like is removed from the database
+//     const like = await Likes.findOne({ postId, user: userId });
+//     expect(like).toBeNull();
+// });
 
   it('should return 404 if the blog post does not exist', async () => {
     const nonExistentBlogId = '603dcd781c25b04778b1ef4d';
