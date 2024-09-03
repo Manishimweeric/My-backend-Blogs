@@ -18,7 +18,7 @@ app.use('/api', userRoutes);
 app.get('/test', (req, res) => res.status(200).json({ message: 'Test route' }));
 
 
-const url_db="mongodb+srv://manishimweeric54:0789704679eric?@cluster0.tkfd8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const url_db="mongodb+srv://manishimweeric54:0789704679eric@cluster0.tkfd8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 async function startServer() {
     try {
