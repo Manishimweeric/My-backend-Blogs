@@ -205,4 +205,15 @@ it('should save a comment', async () => {
 
     expect(Array.isArray(res.body)).toBeTruthy();
   });
+
+  it('should return 404 and the correct message when a server error occurs', async () => {
+    const nonExistentBlogIds = 'f603dcd781rtc25b04778b1ef4ds';
+    const res = await request(app)
+      .get(`/api/blogs/${nonExistentBlogIds}/comments`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(404);
+
+    expect(res.body).toHaveProperty('message', 'Post not found');
+  });
+
  });
