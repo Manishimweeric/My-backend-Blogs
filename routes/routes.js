@@ -68,7 +68,7 @@ router.get('/blogs', isAuthenticated,blogController.getAllBlogPosts);
  *         description: Internal server error
  */
 
-router.post('/blogs', isAuthenticated,blogController.createBlogPost);
+router.post('/blogs', isAuthenticated,upload,blogController.createBlogPost);
 
 
 router.post('/blog', isAuthenticated, blogController.createBlog);
