@@ -6,26 +6,10 @@ const blogController = require('../controller/BlogController');
 const userController = require('../controller/UserController');
 const { isAuthenticated } = require('../middlewares/authentication');
 
-/**
- * @swagger
- * /api/blogs:
- *   get:
- *     summary: Retrive all blogs
- *     tags: [Blogs]
- *     responses:
- *       '200':
- *         description: Successfully retrieved all Blogs
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Blog'
- *       '500':
- *         description: Internal server error
- */
 
-router.get('/blogs', isAuthenticated,blogController.getAllBlogPosts);
+router.post('/users', userController.signup);
+
+router.post('/user', userController.login);
 
 /**
  * @openapi
@@ -72,6 +56,28 @@ router.post('/blogs', isAuthenticated,upload,blogController.createBlogPost);
 
 
 router.post('/blog', isAuthenticated, blogController.createBlog);
+
+/**
+ * @swagger
+ * /api/blogs:
+ *   get:
+ *     summary: Retrive all blogs
+ *     tags: [Blogs]
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved all Blogs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Blog'
+ *       '500':
+ *         description: Internal server error
+ */
+
+router.get('/blogs', isAuthenticated,blogController.getAllBlogPosts);
+
 
 /**
  * @swagger
@@ -215,6 +221,40 @@ router.post('/blogs/:id/comments', isAuthenticated,blogController.SaveComment);
 
 /**
  * @openapi
+ * /api/blogs/{id}/comments:
+ *   get:
+ *     summary: Get all comments for a specific blog 
+ *     tags:
+ *       - Comments
+ *     description: Get all comments for a specific blog by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the blog to retrieve comments for
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved comments
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Comment'
+ *       '404':
+ *         description: Blog not found
+ *       '401':
+ *         description: Unauthorized - user authentication failed
+ *       '500':
+ *         description: Internal server error
+ */
+router.get('/blogs/:id/comments',isAuthenticated, blogController.GetComment);
+/**
+ * @openapi
  * /api/blogs/{id}/like:
  *   post:
  *     summary: add a Like to blog 
@@ -319,43 +359,8 @@ router.get('/blogs/:id/likes',isAuthenticated ,blogController.CountLikes);
 router.get('/blogs/:id/likeusers',isAuthenticated ,blogController.getAllLikesAndUsers);
 
 
-/**
- * @openapi
- * /api/blogs/{id}/comments:
- *   get:
- *     summary: Get all comments for a specific blog 
- *     tags:
- *       - Comments
- *     description: Get all comments for a specific blog by ID
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID of the blog to retrieve comments for
- *         schema:
- *           type: string
- *     responses:
- *       '200':
- *         description: Successfully retrieved comments
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Comment'
- *       '404':
- *         description: Blog not found
- *       '401':
- *         description: Unauthorized - user authentication failed
- *       '500':
- *         description: Internal server error
- */
-router.get('/blogs/:id/comments',isAuthenticated, blogController.GetComment);
 
-router.post('/users', userController.signup);
 
-router.post('/user', userController.login);
+
 
 module.exports = router;
