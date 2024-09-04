@@ -73,7 +73,6 @@ exports.getAllBlogPosts = async (req, res) => {
 };
 
 exports.getBlogById = async (req, res) => {
-
            const post = await Post.findOne({_id: req.params.id});
             res.send(post)
         
