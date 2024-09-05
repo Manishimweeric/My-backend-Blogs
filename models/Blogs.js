@@ -28,14 +28,6 @@ const schema = mongoose.Schema({
     author : {
         type: String,
     },
-    comments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "blogComment"
-    }],
-    Likes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "blogLike"
-    }],
     likesCount: {
         type: Number,
         default: 0
