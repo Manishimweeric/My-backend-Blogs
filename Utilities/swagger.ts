@@ -38,14 +38,6 @@ const options= {
                         public_id: { type: 'string', default: '' },
                         date: { type: 'string', format: 'date-time', default: new Date().toISOString() },
                         author: { type: 'string' },
-                        comments: { 
-                            type: 'array',
-                            items: { type: 'string', format: 'uuid' } 
-                        },
-                        Likes: { 
-                            type: 'array',
-                            items: { type: 'string', format: 'uuid' } 
-                        },
                         likesCount: { type: 'number', default: 0 }
                     },
                     required: ['title', 'content'],
