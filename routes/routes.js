@@ -87,7 +87,7 @@ router.get('/blogs', isAuthenticated,blogController.getAllBlogPosts);
  *     tags: [Blogs]
  *     parameters:
  *       - in: path
- *         name: blogId
+ *         name: id
  *         required: true
  *         description: ID of the blog to retrieve
  *         schema:
