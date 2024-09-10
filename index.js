@@ -8,6 +8,8 @@ require('./Utilities/passport_configuration');
 const  swaggerjsdoc = require('swagger-jsdoc');
 const swaggerui = require('swagger-ui-express');
 const swaggerDocs = require("./Utilities/swagger.ts");
+const cors = require('cors');
+app.use(cors());
 
 const app = express();
 

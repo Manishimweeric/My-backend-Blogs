@@ -359,8 +359,4 @@ router.get('/blogs/:id/likes',isAuthenticated ,blogController.CountLikes);
 router.get('/blogs/:id/likeusers',isAuthenticated ,blogController.getAllLikesAndUsers);
 
 
-
-
-
-
 module.exports = router;
