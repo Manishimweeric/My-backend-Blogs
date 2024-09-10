@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    role: { type: String, default: 'user', enum: ['user', 'admin'] }
+    role: { type: String, default: 'admin', enum: ['user', 'user'] }
 });
 
 userSchema.pre('save', function (next) {
