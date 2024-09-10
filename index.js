@@ -5,13 +5,15 @@ const userRoutes = require("./routes/UserRoutes");
 const passport = require('passport');
 require('./Utilities/passport_configuration');
 
-const  swaggerjsdoc = require('swagger-jsdoc');
+const swaggerjsdoc = require('swagger-jsdoc');
 const swaggerui = require('swagger-ui-express');
 const swaggerDocs = require("./Utilities/swagger.ts");
 const cors = require('cors');
-app.use(cors());
 
+// Initialize app before using it
 const app = express();
+
+app.use(cors()); // Now this line comes after app initialization
 
 app.use(express.json());
 app.use(passport.initialize());
@@ -19,34 +21,31 @@ app.use('/api', routes);
 app.use('/api', userRoutes);
 app.get('/test', (req, res) => res.status(200).json({ message: 'Test route' }));
 
-
 const url_db="mongodb+srv://manishimweeric54:0789704679eric@cluster0.tkfd8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 // const url_db="mongodb://localhost:27017/Nodejs_db"
 
-
-
 async function startServer() {
     try {
-      await mongoose.connect(url_db, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-      console.log('Connected to MongoDB');
-  
-      swaggerDocs(app, 5000); 
+        await mongoose.connect(url_db, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Connected to MongoDB');
 
-      const server = app.listen(3000, () => {
-        console.log('Server has started on port 3000!');
-      });
+        swaggerDocs(app, 5000); 
 
-      return server;
+        const server = app.listen(3000, () => {
+            console.log('Server has started on port 3000!');
+        });
+
+        return server;
     } catch (error) {
-      console.error('Error starting the server:', error);
+        console.error('Error starting the server:', error);
     }
-  }
+}
 
-  if (require.main === module) {
+if (require.main === module) {
     startServer();
-  }
-  
-  module.exports = { app, startServer };
+}
+
+module.exports = { app, startServer };
