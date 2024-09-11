@@ -6,9 +6,7 @@ const blogController = require('../controller/BlogController');
 const userController = require('../controller/UserController');
 const { isAuthenticated } = require('../middlewares/authentication');
 
-
 router.post('/users', userController.signup);
-
 router.post('/user', userController.login);
 
 /**
@@ -76,7 +74,7 @@ router.post('/blog', isAuthenticated, blogController.createBlog);
  *         description: Internal server error
  */
 
-router.get('/blogs', isAuthenticated,blogController.getAllBlogPosts);
+router.get('/blogs',blogController.getAllBlogPosts);
 
 
 /**
