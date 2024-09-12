@@ -10,10 +10,8 @@ const swaggerui = require('swagger-ui-express');
 const swaggerDocs = require("./Utilities/swagger.ts");
 const cors = require('cors');
 
-// Initialize app before using it
 const app = express();
-
-app.use(cors()); // Now this line comes after app initialization
+app.use(cors());
 
 app.use(express.json());
 app.use(passport.initialize());
@@ -31,9 +29,7 @@ async function startServer() {
             useUnifiedTopology: true,
         });
         console.log('Connected to MongoDB');
-
         swaggerDocs(app, 5000); 
-
         const server = app.listen(3000, () => {
             console.log('Server has started on port 3000!');
         });
