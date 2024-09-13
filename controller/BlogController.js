@@ -68,8 +68,16 @@ const schema = Joi.object({
 };
 
 exports.getAllBlogPosts = async (req, res) => {
-    const posts = await Post.find();
-    res.send(posts);
+    // Fetch all posts
+    const posts = await Post.find().populate('author');
+
+    // For each post, count the number of likes and attach the count to the response
+    const updatedPosts = await Promise.all(posts.map(async post => {
+        const likeCount = await Like.countDocuments({ post: post._id });
+        return { ...post._doc, likesCount: likeCount };  // Attach like count without saving
+    }));
+
+    res.send(updatedPosts);
 };
 
 exports.getBlogById = async (req, res) => {
