@@ -72,7 +72,7 @@ exports.getAllBlogPosts = async (req, res) => {
 
         // For each post, count the number of likes
         const postsWithLikes = await Promise.all(posts.map(async post => {
-            const likeCount = await Like.countDocuments({ postId: post._id });
+            const likeCount = await Likes.countDocuments({ postId: post._id });
             return { ...post._doc, likesCount: likeCount };  // Attach the like count to the response
         }));
 

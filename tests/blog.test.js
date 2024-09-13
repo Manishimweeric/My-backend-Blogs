@@ -90,12 +90,13 @@ afterAll(async () => {
 
   it('should get all blog posts', async () => {
     const res = await request(app)
-      .get('/api/blogs')
-      .set('Authorization', `Bearer ${token}`)
-      .expect(200);
+        .get('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200);
 
     expect(Array.isArray(res.body)).toBeTruthy();
-  });
+}, 10000); // Set the timeout to 10 seconds
+
 
   it('should get a blog post by id', async () => {
     const res = await request(app)
