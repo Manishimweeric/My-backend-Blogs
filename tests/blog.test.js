@@ -88,14 +88,30 @@ afterAll(async () => {
   });
 
 
-  it('should get all blog posts', async () => {
+  it('should get all blog posts with expected fields', async () => {
     const res = await request(app)
       .get('/api/blogs')
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
-
+  
+    // Check that the response is an array
     expect(Array.isArray(res.body)).toBeTruthy();
+  
+    // Check that the array is not empty
+    expect(res.body.length).toBeGreaterThan(0);
+  
+    // Check that each post contains the expected fields
+    res.body.forEach(post => {
+      expect(post).toHaveProperty('_id');
+      expect(post).toHaveProperty('title');
+      expect(post).toHaveProperty('content');
+      expect(post).toHaveProperty('image');
+      expect(post).toHaveProperty('likesCount');  // Check for likesCount
+      expect(post).toHaveProperty('author');
+      expect(typeof post.likesCount).toBe('number');  // Ensure likesCount is a number
+    });
   });
+  
 
   it('should get a blog post by id', async () => {
     const res = await request(app)
