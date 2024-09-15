@@ -201,3 +201,18 @@ exports.GetComment = async (req, res) => {
         res.send({  message: 'Post not found'})
     }
 };
+
+exports.CountLikesAndComments = async (req, res) => {
+    try {
+        const totalLikes = await Like.countDocuments();
+
+        const totalComments = await Comment.countDocuments();
+
+        res.status(200).json({
+            totalLikes,
+            totalComments
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};
