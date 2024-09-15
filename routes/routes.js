@@ -251,7 +251,7 @@ router.post('/blogs/:id/comments', isAuthenticated,blogController.SaveComment);
  *         description: Internal server error
  */
 
-router.get('/blogs/:id/comments', blogController.GetComment);
+router.get('/blogs/:id/comments',blogController.GetComment);
 /**
  * @openapi
  * /api/blogs/{id}/like:
