@@ -20,7 +20,8 @@ const schema = mongoose.Schema({
         type: String,
         default: '' 
     
-    }, date : {
+    }, 
+    date : {
 
         type: Date,
         default: Date.now,        
