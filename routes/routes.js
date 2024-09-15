@@ -103,7 +103,7 @@ router.get('/blogs',blogController.getAllBlogPosts);
  *         description: Internal server error
  */
 
-router.get('/blogs/:id', isAuthenticated,blogController.getBlogById);
+router.get('/blogs/:id',blogController.getBlogById);
 
 
 /**
