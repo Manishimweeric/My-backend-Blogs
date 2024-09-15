@@ -193,7 +193,8 @@ exports.GetComment = async (req, res) => {
         const postId = req.params.id;
         const post = await Post.findById(postId);
 
-        const comments = await Comment.find({ postId: postId });
+        // const comments = await Comment.find({ postId: postId });
+        const comments = await Comment.find({ postId: postId }).populate('user', 'email');
         res.status(200).json(comments);
     } catch (error) {
         res.status(404)
