@@ -76,6 +76,7 @@ router.get('/blogs',blogController.getAllBlogPosts);
 
 router.get('/blogs/countss',blogController.CountLikesAndComments);
 
+
 /**
  * @swagger
  * /api/blogs/{id}:

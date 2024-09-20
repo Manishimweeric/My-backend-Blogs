@@ -204,7 +204,7 @@ exports.GetComment = async (req, res) => {
 
 exports.CountLikesAndComments = async (req, res) => {
     try {
-        const totalLikes = await Like.countDocuments();
+        const totalLikes = await Likes.countDocuments();
 
         const totalComments = await Comment.countDocuments();
         res.status(200).json({
