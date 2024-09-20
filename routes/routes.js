@@ -51,8 +51,6 @@ router.post('/user', userController.login);
  */
 
 router.post('/blogs', isAuthenticated,upload,blogController.createBlogPost);
-
-
 router.post('/blog', isAuthenticated, blogController.createBlog);
 
 /**
@@ -76,7 +74,7 @@ router.post('/blog', isAuthenticated, blogController.createBlog);
 
 router.get('/blogs',blogController.getAllBlogPosts);
 
-router.get('/blogs/counts',blogController.CountLikesAndComments);
+router.get('/blogs/countss',blogController.CountLikesAndComments);
 
 /**
  * @swagger

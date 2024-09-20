@@ -207,8 +207,6 @@ exports.CountLikesAndComments = async (req, res) => {
         const totalLikes = await Like.countDocuments();
 
         const totalComments = await Comment.countDocuments();
-
-        // Send the counts in the response
         res.status(200).json({
             totalLikes,
             totalComments
