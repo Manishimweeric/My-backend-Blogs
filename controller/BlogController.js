@@ -70,12 +70,17 @@ const schema = Joi.object({
 exports.getAllBlogPosts = async (req, res) => {
     const posts = await Post.find();
 
-        const postsWithLikes = await Promise.all(posts.map(async post => {
-            const likeCount = await Likes.countDocuments({ postId: post._id });
-            return { ...post._doc, likesCount: likeCount };  // Attach the like count to the response
-        }));
+    const postsWithStats = await Promise.all(posts.map(async post => {
+        const likeCount = await Likes.countDocuments({ postId: post._id });
+        const commentCount = await Comments.countDocuments({ postId: post._id }); // Count comments
+        return {
+            ...post._doc,
+            likesCount: likeCount,
+            commentsCount: commentCount // Attach the comment count to the response
+        };
+    }));
 
-        res.send(postsWithLikes);
+        res.send(postsWithStats);
 };
 
 exports.getBlogById = async (req, res) => {
