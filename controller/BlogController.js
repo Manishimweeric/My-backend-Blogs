@@ -72,7 +72,7 @@ exports.getAllBlogPosts = async (req, res) => {
 
     const postsWithStats = await Promise.all(posts.map(async post => {
         const likeCount = await Likes.countDocuments({ postId: post._id });
-        const commentCount = await Comments.countDocuments({ postId: post._id }); // Count comments
+        const commentCount = await Comment.countDocuments({ postId: post._id }); // Count comments
         return {
             ...post._doc,
             likesCount: likeCount,
